@@ -56,9 +56,9 @@ if [ -f "$TAR_ROOT/CLAUDE.md" ]; then
   rm -f "$PWD/CLAUDE.md.bak"
 fi
 
-# Automatically enable the MCP servers by creating a local project .claude.json structure
-if [ -f "$PWD/.claude/mcp-configs/mcp-servers.json" ] && [ ! -f "$PWD/.claude.json" ]; then
-    cp "$PWD/.claude/mcp-configs/mcp-servers.json" "$PWD/.claude.json"
+# Automatically enable the MCP servers by creating a local project .mcp.json structure
+if [ -f "$PWD/.claude/mcp-configs/mcp-servers.json" ] && [ ! -f "$PWD/.mcp.json" ]; then
+    cp "$PWD/.claude/mcp-configs/mcp-servers.json" "$PWD/.mcp.json"
 fi
 
 echo "✅ Success! Claude Code Starter Kit applied to the project."
