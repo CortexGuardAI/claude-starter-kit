@@ -1,0 +1,70 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"let d='';process.stdin.on('data',c=>d+=c);process.stdin.on('end',()=>{const i=JSON.parse(d);const cmd=i.tool_input?.command||'';if(/--no-verify/.test(cmd)){console.error('[Hook] BLOCKED: --no-verify flag detected. Git hooks should not be bypassed.');process.exit(2)}console.log(d)})\""
+          }
+        ],
+        "description": "Block git hook-bypass flag (--no-verify) to protect pre-commit and pre-push hooks"
+      },
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"let d='';process.stdin.on('data',c=>d+=c);process.stdin.on('end',()=>{const i=JSON.parse(d);const c=i.tool_input?.content||'';const lines=c.split('\\n').length;if(lines>800){console.error('[Hook] BLOCKED: File exceeds 800 lines ('+lines+' lines)');console.error('[Hook] Split into smaller, focused modules');process.exit(2)}console.log(d)})\""
+          }
+        ],
+        "description": "Block creation of files larger than 800 lines"
+      },
+      {
+        "matcher": "Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"let d='';process.stdin.on('data',c=>d+=c);process.stdin.on('end',()=>{const i=JSON.parse(d);const ns=i.tool_input?.new_string||'';if(/TODO|FIXME|HACK/.test(ns)){console.error('[Hook] Warning: New TODO/FIXME/HACK comment added - consider creating an issue')}console.log(d)})\""
+          }
+        ],
+        "description": "Warn when adding TODO/FIXME/HACK comments"
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"let d='';process.stdin.on('data',c=>d+=c);process.stdin.on('end',()=>{const i=JSON.parse(d);const ns=i.tool_input?.new_string||'';if(/console\\.log/.test(ns)){console.error('[Hook] Warning: console.log detected in edit - remove before committing')}console.log(d)})\""
+          }
+        ],
+        "description": "Warn about console.log statements after edits"
+      },
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"const fs=require('fs');let d='';process.stdin.on('data',c=>d+=c);process.stdin.on('end',()=>{const i=JSON.parse(d);const p=i.tool_input?.file_path||'';if(/src\\/.*\\.(ts|js|py)$/.test(p)&&!/\\.test\\.|\\.spec\\.|\\_test\\./.test(p)){const testExts=['.test.ts','.test.js','.spec.ts','.spec.js','_test.py'];const hasTest=testExts.some(ext=>{const tp=p.replace(/\\.(ts|js|py)$/,ext);return fs.existsSync(tp)});if(!hasTest){console.error('[Hook] No test file found for: '+p);console.error('[Hook] Consider writing tests first (/tdd)')}}console.log(d)})\""
+          }
+        ],
+        "description": "Remind to create tests when adding new source files"
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"let d='';process.stdin.on('data',c=>d+=c);process.stdin.on('end',()=>{const{execSync}=require('child_process');try{const files=execSync('git diff --name-only HEAD 2>/dev/null',{encoding:'utf8'}).trim().split('\\n').filter(Boolean);let found=false;for(const f of files){try{const content=require('fs').readFileSync(f,'utf8');if(/console\\.log/.test(content)&&/\\.(ts|js|tsx|jsx)$/.test(f)){console.error('[Hook] console.log found in: '+f);found=true}}catch(e){}}if(found){console.error('[Hook] Remove console.log statements before committing')}}catch(e){}console.log(d)})\""
+          }
+        ],
+        "description": "Check for console.log in modified files after each response"
+      }
+    ]
+  }
+}

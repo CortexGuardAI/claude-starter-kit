@@ -1,81 +1,86 @@
-# Example Project CLAUDE.md
+# CLAUDE.md
 
-This is an example project-level CLAUDE.md file. Place this in your project root.
+This file provides guidance to Claude Code when working with code in this repository.
 
 ## Project Overview
 
-[Brief description of your project - what it does, tech stack]
+<!-- Replace this section with your project's specific details -->
+[Brief description of your project - what it does, tech stack, main goals]
+
+## Architecture
+
+<!-- Customize this to match your project structure -->
+```
+src/
+|-- app/              # Application entry point / routing
+|-- components/       # Reusable UI components (if frontend)
+|-- services/         # Business logic / service layer
+|-- models/           # Data models / types
+|-- utils/            # Utility functions and helpers
+|-- config/           # Configuration files
+```
 
 ## Critical Rules
 
 ### 1. Code Organization
-
 - Many small files over few large files
 - High cohesion, low coupling
 - 200-400 lines typical, 800 max per file
 - Organize by feature/domain, not by type
 
 ### 2. Code Style
-
 - No emojis in code, comments, or documentation
 - Immutability always - never mutate objects or arrays
 - No console.log in production code
 - Proper error handling with try/catch
-- Input validation with Zod or similar
+- Input validation at all boundaries
 
 ### 3. Testing
-
-- TDD: Write tests first
+- TDD: Write tests first (use `/tdd` command)
 - 80% minimum coverage
 - Unit tests for utilities
 - Integration tests for APIs
 - E2E tests for critical flows
 
 ### 4. Security
-
 - No hardcoded secrets
 - Environment variables for sensitive data
 - Validate all user inputs
 - Parameterized queries only
 - CSRF protection enabled
 
-## File Structure
+## Available Agents
 
-```
-src/
-|-- app/              # Next.js app router
-|-- components/       # Reusable UI components
-|-- hooks/            # Custom React hooks
-|-- lib/              # Utility libraries
-|-- types/            # TypeScript definitions
-```
+| Agent | Purpose |
+|-------|---------|
+| `planner` | Creates implementation plans for complex features |
+| `architect` | System design, scalability, and architecture decisions |
+| `loop-operator` | Runs autonomous loops safely with stop conditions |
+| `tdd-guide` | Enforces test-driven development (Red-Green-Refactor) |
+| `security-reviewer` | OWASP Top 10 vulnerability detection |
 
-## Key Patterns
+## Available Commands
 
-### API Response Format
+| Command | Description |
+|---------|-------------|
+| `/plan` | Create implementation plan (waits for approval) |
+| `/tdd` | Test-driven development workflow |
+| `/build-fix` | Auto-detect and fix build errors |
+| `/code-review` | Security and quality review of changes |
+| `/checkpoint` | Create/verify workflow checkpoints |
+| `/docs` | Look up library documentation |
 
-```typescript
-interface ApiResponse<T> {
-  success: boolean
-  data?: T
-  error?: string
-}
-```
+## Available Skills
 
-### Error Handling
-
-```typescript
-try {
-  const result = await operation()
-  return { success: true, data: result }
-} catch (error) {
-  console.error('Operation failed:', error)
-  return { success: false, error: 'User-friendly message' }
-}
-```
+| Skill | When to Use |
+|-------|-------------|
+| `tdd-workflow` | Writing features, fixing bugs, refactoring |
+| `security-review` | Auth, user input, API endpoints, secrets |
+| `codebase-onboarding` | Starting work on a new/unfamiliar codebase |
 
 ## Environment Variables
 
+<!-- List your project's required environment variables -->
 ```bash
 # Required
 DATABASE_URL=
@@ -84,13 +89,6 @@ API_KEY=
 # Optional
 DEBUG=false
 ```
-
-## Available Commands
-
-- `/tdd` - Test-driven development workflow
-- `/plan` - Create implementation plan
-- `/code-review` - Review code quality
-- `/build-fix` - Fix build errors
 
 ## Git Workflow
 
