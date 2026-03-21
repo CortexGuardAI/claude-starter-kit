@@ -90,6 +90,12 @@ API_KEY=
 DEBUG=false
 ```
 
+## MCP Servers
+
+This project includes recommended Model Context Protocol (MCP) configurations in `mcp-configs/mcp-servers.json` for training and extended capabilities. 
+
+To enable live documentation (Context7), browser testing (Playwright), or GitHub integration, copy the JSON blocks to your global `~/.claude.json` file. See `mcp-configs/README.md` for details.
+
 ## Git Workflow
 
 - Conventional commits: `feat:`, `fix:`, `refactor:`, `docs:`, `test:`

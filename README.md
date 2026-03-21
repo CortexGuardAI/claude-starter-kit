@@ -60,6 +60,16 @@ Deep workflow knowledge that Claude activates automatically when relevant.
 | **Security Review** | `skills/security-review/` | Secrets management, input validation, SQL injection prevention, pre-deployment checklist |
 | **Codebase Onboarding** | `skills/codebase-onboarding/` | Systematic discovery process for mapping and understanding new codebases |
 
+### MCP Configurations
+
+Pre-configured Model Context Protocol servers to give Claude Code live access to external data. See `mcp-configs/README.md` for setup instructions.
+
+| Configuration | Description |
+|---------------|-------------|
+| **Context7** | Live framework documentation lookups using `@upstash/context7-mcp` |
+| **Playwright** | Browser automation and E2E testing using `@playwright/mcp` |
+| **GitHub** | Read/write PRs, issues, and repos using `@modelcontextprotocol/server-github` |
+
 ### Hooks
 
 Event-driven automations that run before/after Claude's tool executions.
