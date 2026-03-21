@@ -74,6 +74,7 @@ Deep workflow knowledge that Claude activates automatically when relevant.
 | **TDD Workflow** | `skills/tdd-workflow/` | Testing patterns, mocking strategies, coverage verification, and common mistakes |
 | **Security Review** | `skills/security-review/` | Secrets management, input validation, SQL injection prevention, pre-deployment checklist |
 | **Codebase Onboarding** | `skills/codebase-onboarding/` | Systematic discovery process for mapping and understanding new codebases |
+| **Semantic Commits** | `skills/semantic-commits/` | Version control strategy enforcing atomic, semantic conventional commits |
 
 ### MCP Configurations
 

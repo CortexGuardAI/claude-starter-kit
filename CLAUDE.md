@@ -73,11 +73,12 @@ src/
 
 ## Available Skills
 
-| Skill | When to Use |
+| Skill | Description |
 |-------|-------------|
-| `tdd-workflow` | Writing features, fixing bugs, refactoring |
-| `security-review` | Auth, user input, API endpoints, secrets |
-| `codebase-onboarding` | Starting work on a new/unfamiliar codebase |
+| TDD Workflow | Best practices for test-first development |
+| Security Review | Checklists and patterns for secure coding |
+| Codebase Onboarding | Process for understanding new applications |
+| Semantic Commits | Strategy enforcing atomic, conventional commits |
 
 ## Environment Variables
 
