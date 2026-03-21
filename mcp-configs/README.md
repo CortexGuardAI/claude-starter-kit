@@ -20,9 +20,9 @@ MCP Servers are configured globally in your user directory, **not** inside your 
 
 2. Copy the contents of the `mcp-servers.json` file in this directory and paste them into the `"mcpServers"` object inside your `~/.claude.json`.
 
-3. Update the Environment Variables:
-   - For GitHub, replace `"YOUR_GITHUB_PAT_HERE"` with a valid Personal Access Token.
-   - Some servers (like Context7 and Playwright) do not require environment variables and work out of the box using `npx`.
+3. Run `/setup-github` in Claude Code:
+   - For GitHub access, simply run `/setup-github YOUR_PAT_HERE` inside Claude Code to automatically inject the server.
+   - Context7 and Playwright are instantly available out of the box using `npx` with zero configuration.
 
 ## Included Servers
 
