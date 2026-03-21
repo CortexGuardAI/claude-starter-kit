@@ -28,10 +28,11 @@ cd my-project
 mkdir -p /path/to/your/project/.claude
 
 # Copy the folders into your project's .claude folder
-cp -r agents/ commands/ skills/ hooks/ /path/to/your/project/.claude/
+cp -r agents/ commands/ skills/ hooks/ mcp-configs/ /path/to/your/project/.claude/
 
-# Copy CLAUDE.md to your project root
+# Copy CLAUDE.md and local .claude.json to your project root
 cp CLAUDE.md /path/to/your/project/
+cp mcp-configs/mcp-servers.json /path/to/your/project/.claude.json
 ```
 
 Then edit `CLAUDE.md` to match your project's specifics.

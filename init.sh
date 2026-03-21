@@ -47,16 +47,30 @@ if [ -d "$TAR_ROOT/agents" ]; then cp -r "$TAR_ROOT/agents" "$PWD/.claude/"; fi
 if [ -d "$TAR_ROOT/commands" ]; then cp -r "$TAR_ROOT/commands" "$PWD/.claude/"; fi
 if [ -d "$TAR_ROOT/skills" ]; then cp -r "$TAR_ROOT/skills" "$PWD/.claude/"; fi
 if [ -d "$TAR_ROOT/hooks" ]; then cp -r "$TAR_ROOT/hooks" "$PWD/.claude/"; fi
-if [ -f "$TAR_ROOT/CLAUDE.md" ]; then cp "$TAR_ROOT/CLAUDE.md" "$PWD/"; fi
+if [ -d "$TAR_ROOT/mcp-configs" ]; then cp -r "$TAR_ROOT/mcp-configs" "$PWD/.claude/"; fi
+if [ -f "$TAR_ROOT/CLAUDE.md" ]; then 
+  cp "$TAR_ROOT/CLAUDE.md" "$PWD/"
+  
+  # Ensure the CLAUDE.md file correctly points to the new .claude/mcp-configs path
+  sed -i.bak 's|mcp-configs/|.claude/mcp-configs/|g' "$PWD/CLAUDE.md"
+  rm -f "$PWD/CLAUDE.md.bak"
+fi
+
+# Automatically enable the MCP servers by creating a local project .claude.json structure
+if [ -f "$PWD/.claude/mcp-configs/mcp-servers.json" ] && [ ! -f "$PWD/.claude.json" ]; then
+    cp "$PWD/.claude/mcp-configs/mcp-servers.json" "$PWD/.claude.json"
+fi
 
 echo "✅ Success! Claude Code Starter Kit applied to the project."
 echo ""
 echo "Installed components in .claude/:"
-echo "  - .claude/agents/     Specific workflow sub-agents"
-echo "  - .claude/commands/   Interactive slash commands"
-echo "  - .claude/skills/     Deep workflow knowledge bases"
-echo "  - .claude/hooks/      Hooks configuration"
-echo "  - CLAUDE.md           Project-level instructions (in project root)"
+echo "  - .claude/agents/        Specific workflow sub-agents"
+echo "  - .claude/commands/      Interactive slash commands"
+echo "  - .claude/skills/        Deep workflow knowledge bases"
+echo "  - .claude/hooks/         Hooks configuration"
+echo "  - .claude/mcp-configs/   MCP server configuration templates"
+echo "  - CLAUDE.md              Project-level instructions (in project root)"
+echo "  - .claude.json           Local MCP server definitions (ready to use)"
 echo ""
 echo "Next steps:"
 echo "1. Review and update CLAUDE.md to match your project instructions."
