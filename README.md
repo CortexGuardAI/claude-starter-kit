@@ -4,14 +4,24 @@ A production-ready boilerplate for supercharging your development workflow with 
 
 ## Quick Start
 
-### Option 1: Clone and customize
+### Option 1: Zero-Install (Recommended)
+
+Instantly initialize any new or existing project with this starter kit by running a single command inside your project directory (macOS & Linux):
+
+> **Note**: Update `your-org` and `claude-starter-kit` in the URL to match your fork's destination before providing this to your team!
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/your-org/claude-starter-kit/main/init.sh | bash
+```
+
+### Option 2: Clone and customize
 
 ```bash
 git clone https://github.com/your-org/claude-starter-kit.git my-project
 cd my-project
 ```
 
-### Option 2: Copy into existing project
+### Option 3: Copy into existing project
 
 ```bash
 # Copy the folders you need into your project
