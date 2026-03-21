@@ -31,41 +31,32 @@ trap 'rm -rf "$TMP_DIR"' EXIT
 echo "📥 Downloading starter kit artifacts..."
 curl -fsSL "$TARBALL_URL" -o "$TMP_DIR/repo.tar.gz"
 
-echo "📦 Extracting files into current directory ($PWD)..."
+echo "📦 Extracting files..."
 
-# Extract only the specific folders we need from the tarball
-# The tarball root folder is formatted as REPO_NAME-BRANCH (e.g., claude-starter-kit-main)
-TAR_ROOT="${REPO_NAME}-${BRANCH}"
+# The tarball root folder is formatted as REPO_NAME-BRANCH
+TAR_ROOT="$TMP_DIR/${REPO_NAME}-${BRANCH}"
 
-# Create directories if they don't exist
-mkdir -p .claude/hooks agents commands skills mcp-configs
+# Extract the entire tarball into the temp directory
+tar -xzf "$TMP_DIR/repo.tar.gz" -C "$TMP_DIR"
 
-# Extract the relevant folders and CLAUDE.md
-# We use --strip-components=1 to remove the $TAR_ROOT top-level directory from the extraction paths
-tar -xzf "$TMP_DIR/repo.tar.gz" -C "$PWD" \
-  --strip-components=1 \
-  "$TAR_ROOT/agents" \
-  "$TAR_ROOT/commands" \
-  "$TAR_ROOT/skills" \
-  "$TAR_ROOT/hooks" \
-  "$TAR_ROOT/CLAUDE.md" 2>/dev/null || true
+# Ensure .claude directory exists in the destination project
+mkdir -p "$PWD/.claude"
 
-# If the hooks were extracted to ./hooks instead of .claude/hooks, move them
-if [ -d "hooks" ] && [ ! -d ".claude/hooks" ]; then
-    mv hooks .claude/
-elif [ -d "hooks" ] && [ -d ".claude/hooks" ]; then
-    cp -r hooks/* .claude/hooks/
-    rm -rf hooks
-fi
+# Move the files to their correct locations in .claude
+if [ -d "$TAR_ROOT/agents" ]; then cp -r "$TAR_ROOT/agents" "$PWD/.claude/"; fi
+if [ -d "$TAR_ROOT/commands" ]; then cp -r "$TAR_ROOT/commands" "$PWD/.claude/"; fi
+if [ -d "$TAR_ROOT/skills" ]; then cp -r "$TAR_ROOT/skills" "$PWD/.claude/"; fi
+if [ -d "$TAR_ROOT/hooks" ]; then cp -r "$TAR_ROOT/hooks" "$PWD/.claude/"; fi
+if [ -f "$TAR_ROOT/CLAUDE.md" ]; then cp "$TAR_ROOT/CLAUDE.md" "$PWD/"; fi
 
 echo "✅ Success! Claude Code Starter Kit applied to the project."
 echo ""
-echo "Installed components:"
-echo "  - agents/     Specific workflow sub-agents"
-echo "  - commands/   Interactive slash commands"
-echo "  - skills/     Deep workflow knowledge bases"
-echo "  - .claude/    Hooks configuration"
-echo "  - CLAUDE.md   Project-level instructions"
+echo "Installed components in .claude/:"
+echo "  - .claude/agents/     Specific workflow sub-agents"
+echo "  - .claude/commands/   Interactive slash commands"
+echo "  - .claude/skills/     Deep workflow knowledge bases"
+echo "  - .claude/hooks/      Hooks configuration"
+echo "  - CLAUDE.md           Project-level instructions (in project root)"
 echo ""
 echo "Next steps:"
 echo "1. Review and update CLAUDE.md to match your project instructions."
