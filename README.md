@@ -8,16 +8,16 @@ A production-ready boilerplate for supercharging your development workflow with 
 
 Instantly initialize any new or existing project with this starter kit by running a single command inside your project directory (macOS & Linux):
 
-> **Note**: Update `your-org` and `claude-starter-kit` in the URL to match your fork's destination before providing this to your team!
+> **Note**: This references the `CortexGuardAI` organization. If you fork this, be sure to update the URLs!
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/your-org/claude-starter-kit/main/init.sh | bash
+curl -fsSL https://raw.githubusercontent.com/CortexGuardAI/claude-starter-kit/main/init.sh | bash
 ```
 
 ### Option 2: Clone and customize
 
 ```bash
-git clone https://github.com/your-org/claude-starter-kit.git my-project
+git clone https://github.com/CortexGuardAI/claude-starter-kit.git my-project
 cd my-project
 ```
 

@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
 # Claude Code Starter Kit - Zero-Install Initialization Script
-# Usage: curl -fsSL https://raw.githubusercontent.com/your-org/claude-starter-kit/main/init.sh | bash
+# Usage: curl -fsSL https://raw.githubusercontent.com/CortexGuardAI/claude-starter-kit/main/init.sh | bash
 
 set -e
 
 # Configuration
-REPO_OWNER="your-org"
+REPO_OWNER="CortexGuardAI"
 REPO_NAME="claude-starter-kit"
 BRANCH="main"
 TARBALL_URL="https://github.com/${REPO_OWNER}/${REPO_NAME}/archive/refs/heads/${BRANCH}.tar.gz"
