@@ -69,6 +69,7 @@ src/
 | `/code-review` | Security and quality review of changes |
 | `/checkpoint` | Create/verify workflow checkpoints |
 | `/docs` | Look up library documentation |
+| `/setup-github` | Configure GitHub MCP server PAT token |
 
 ## Available Skills
 

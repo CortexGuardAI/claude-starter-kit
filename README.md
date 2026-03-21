@@ -63,6 +63,7 @@ Slash commands you invoke directly (e.g., `/plan`, `/tdd`).
 | `/code-review` | `commands/code-review.md` | Review uncommitted changes for security (CRITICAL), quality (HIGH), practices (MEDIUM) |
 | `/checkpoint` | `commands/checkpoint.md` | Create/verify git-based workflow checkpoints with state comparison |
 | `/docs` | `commands/docs.md` | Look up current documentation for any library via Context7 MCP |
+| `/setup-github` | `commands/setup-github.md` | Configures the GitHub MCP server with your Personal Access Token in `.claude.json` |
 
 ### Skills
 
