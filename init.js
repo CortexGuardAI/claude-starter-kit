@@ -53,19 +53,19 @@ if (fs.existsSync(hooksJsonPath)) {
     }
     
     if (settings) {
-        if (!settings.customHooks) settings.customHooks = {};
+        if (!settings.hooks) settings.hooks = {};
         
         // Deep merge PreToolUse, PostToolUse, Stop, etc.
         for (const [eventName, hookArray] of Object.entries(starterHooks)) {
-            if (!settings.customHooks[eventName]) {
-                settings.customHooks[eventName] = [];
+            if (!settings.hooks[eventName]) {
+                settings.hooks[eventName] = [];
             }
             
             // Append hooks that don't already exist (simple dedup by description)
-            const existingDescriptions = settings.customHooks[eventName].map(h => h.description);
+            const existingDescriptions = settings.hooks[eventName].map(h => h.description);
             for (const newHook of hookArray) {
                 if (!existingDescriptions.includes(newHook.description)) {
-                    settings.customHooks[eventName].push(newHook);
+                    settings.hooks[eventName].push(newHook);
                 }
             }
         }

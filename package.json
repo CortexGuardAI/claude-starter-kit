@@ -1,6 +1,6 @@
 {
   "name": "@cortexguardai/claude-starter-kit",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Production-ready boilerplate for supercharging your development workflow with Claude Code.",
   "scripts": {
     "start": "node init.js"
