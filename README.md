@@ -6,12 +6,10 @@ A production-ready boilerplate for supercharging your development workflow with 
 
 ### Option 1: Zero-Install (Recommended)
 
-Instantly initialize any new or existing project with this starter kit by running a single command inside your project directory. This works flawlessly across **macOS, Linux, and Windows**:
-
-> **Note**: This references the `CortexGuardAI` organization. If you fork this, be sure to update the URL!
+Instantly initialize any new or existing project with this starter kit by running a single command inside your project directory. This works flawlessly across **macOS, Linux, and Windows**, and completely avoids Git SSH configuration issues:
 
 ```bash
-npx github:CortexGuardAI/claude-starter-kit
+npx @cortexguardai/claude-starter-kit
 ```
 
 ### Option 2: Clone and customize

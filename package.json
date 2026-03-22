@@ -1,11 +1,16 @@
 {
-  "name": "claude-starter-kit",
+  "name": "@cortexguardai/claude-starter-kit",
   "version": "1.0.0",
   "description": "Production-ready boilerplate for supercharging your development workflow with Claude Code.",
   "scripts": {
     "start": "node init.js"
   },
-  "bin": "./init.js",
+  "bin": {
+    "claude-starter-kit": "./init.js"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/CortexGuardAI/claude-starter-kit.git"
