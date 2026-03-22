@@ -15,7 +15,7 @@ if (!fs.existsSync(claudeDir)) {
 }
 
 // Folders to copy into .claude/
-const foldersToCopy = ['agents', 'commands', 'skills', 'hooks', 'mcp-configs'];
+const foldersToCopy = ['agents', 'commands', 'skills', 'mcp-configs'];
 
 for (const folder of foldersToCopy) {
     const src = path.join(sourceDir, folder);
@@ -24,6 +24,53 @@ for (const folder of foldersToCopy) {
     if (fs.existsSync(src)) {
         console.log(`📦 Copying ${folder}...`);
         fs.cpSync(src, dest, { recursive: true });
+    }
+}
+
+// Copy hooks documentation folder
+const hooksSrcDir = path.join(sourceDir, 'hooks');
+if (fs.existsSync(hooksSrcDir)) {
+    fs.cpSync(hooksSrcDir, path.join(claudeDir, 'hooks'), { recursive: true });
+}
+
+// Safely merge hooks into .claude/settings.json
+const hooksJsonPath = path.join(sourceDir, 'hooks', 'hooks.json');
+const settingsJsonPath = path.join(claudeDir, 'settings.json');
+
+if (fs.existsSync(hooksJsonPath)) {
+    console.log(`🔨 Safely merging hooks into .claude/settings.json...`);
+    const starterHooksData = JSON.parse(fs.readFileSync(hooksJsonPath, 'utf8'));
+    const starterHooks = starterHooksData.hooks || starterHooksData.customHooks || {};
+    
+    let settings = {};
+    if (fs.existsSync(settingsJsonPath)) {
+        try {
+            settings = JSON.parse(fs.readFileSync(settingsJsonPath, 'utf8'));
+        } catch (e) {
+            console.warn(`⚠️  Warning: Could not parse existing settings.json. Hooks integration skipped.`);
+            settings = null;
+        }
+    }
+    
+    if (settings) {
+        if (!settings.customHooks) settings.customHooks = {};
+        
+        // Deep merge PreToolUse, PostToolUse, Stop, etc.
+        for (const [eventName, hookArray] of Object.entries(starterHooks)) {
+            if (!settings.customHooks[eventName]) {
+                settings.customHooks[eventName] = [];
+            }
+            
+            // Append hooks that don't already exist (simple dedup by description)
+            const existingDescriptions = settings.customHooks[eventName].map(h => h.description);
+            for (const newHook of hookArray) {
+                if (!existingDescriptions.includes(newHook.description)) {
+                    settings.customHooks[eventName].push(newHook);
+                }
+            }
+        }
+        
+        fs.writeFileSync(settingsJsonPath, JSON.stringify(settings, null, 2));
     }
 }
 
