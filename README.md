@@ -1,12 +1,10 @@
 # Claude Code Starter Kit
 
-A production-ready boilerplate for supercharging your development workflow with Claude Code. Includes battle-tested agents, slash commands, skills, and hooks that work with any tech stack.
+A production-ready boilerplate that transforms Claude Code into a **complete AI-powered development department**. Includes battle-tested agents, slash commands, skills, hooks, and MCP configurations for any tech stack.
 
 ## Quick Start
 
 ### Option 1: Zero-Install (Recommended)
-
-Instantly initialize any new or existing project with this starter kit by running a single command inside your project directory. This works flawlessly across **macOS, Linux, and Windows**, and completely avoids Git SSH configuration issues:
 
 ```bash
 npx @cortexguardai/claude-starter-kit
@@ -22,18 +20,15 @@ cd my-project
 ### Option 3: Copy into existing project
 
 ```bash
-# Create the .claude directory if it doesn't exist
 mkdir -p /path/to/your/project/.claude
-
-# Copy the folders into your project's .claude folder
 cp -r agents/ commands/ skills/ hooks/ mcp-configs/ /path/to/your/project/.claude/
-
-# Copy CLAUDE.md and local .claude.json to your project root
 cp CLAUDE.md /path/to/your/project/
 cp mcp-configs/mcp-servers.json /path/to/your/project/.claude.json
 ```
 
 Then edit `CLAUDE.md` to match your project's specifics.
+
+---
 
 ## What's Included
 
@@ -43,25 +38,38 @@ Specialized sub-agents that Claude delegates to for specific tasks.
 
 | Agent | File | Description |
 |-------|------|-------------|
-| **Planner** | `agents/planner.md` | Creates detailed implementation plans with phased steps, risk assessment, and testing strategy |
-| **Architect** | `agents/architect.md` | System design, trade-off analysis, ADR templates, and scalability planning |
-| **Loop Operator** | `agents/loop-operator.md` | Runs autonomous fix/refactor loops with safety controls, checkpoints, and escalation |
-| **TDD Guide** | `agents/tdd-guide.md` | Enforces Red-Green-Refactor cycle with 80%+ coverage across unit, integration, and E2E tests |
-| **Security Reviewer** | `agents/security-reviewer.md` | OWASP Top 10 detection, secrets scanning, input validation, and dependency auditing |
+| **Planner** | `agents/planner.md` | Creates phased implementation plans with risk assessment and testing strategy |
+| **Architect** | `agents/architect.md` | System design, trade-off analysis, ADR templates, Technology Radar |
+| **Loop Operator** | `agents/loop-operator.md` | Runs autonomous fix/refactor loops with safety controls and escalation |
+| **TDD Guide** | `agents/tdd-guide.md` | Enforces Red-Green-Refactor with 80%+ coverage across unit, integration, E2E |
+| **Security Reviewer** | `agents/security-reviewer.md` | OWASP Top 10 detection, secrets scanning, input validation, dependency auditing |
+| **DevOps Engineer** | `agents/devops-engineer.md` | CI/CD pipelines, Dockerfile, docker-compose, deployment strategies |
+| **Database Specialist** | `agents/database-specialist.md` | Schema design, safe migrations, query optimization, N+1 prevention |
+| **Performance Engineer** | `agents/performance-engineer.md` | Profiling, bottleneck analysis, caching strategies, bundle optimization |
+| **API Designer** | `agents/api-designer.md` | REST/GraphQL design, OpenAPI specs, RFC 7807 errors, versioning |
+| **Refactoring Guru** | `agents/refactoring-guru.md` | Code smell detection, design patterns, safe incremental refactoring |
+| **Docs Writer** | `agents/docs-writer.md` | READMEs, API docs, ADRs, changelogs, runbooks |
 
 ### Commands
 
-Slash commands you invoke directly (e.g., `/plan`, `/tdd`).
+Slash commands you invoke directly in Claude Code.
 
 | Command | File | Description |
 |---------|------|-------------|
-| `/plan` | `commands/plan.md` | Analyze requirements, create step-by-step plan, wait for approval before coding |
-| `/tdd` | `commands/tdd.md` | Scaffold interfaces, write tests first, implement, refactor, verify coverage |
-| `/build-fix` | `commands/build-fix.md` | Auto-detect build system, parse errors, fix one at a time with guardrails |
-| `/code-review` | `commands/code-review.md` | Review uncommitted changes for security (CRITICAL), quality (HIGH), practices (MEDIUM) |
-| `/checkpoint` | `commands/checkpoint.md` | Create/verify git-based workflow checkpoints with state comparison |
-| `/docs` | `commands/docs.md` | Look up current documentation for any library via Context7 MCP |
-| `/setup-github` | `commands/setup-github.md` | Configures the GitHub MCP server with your Personal Access Token in `.claude.json` |
+| `/plan` | `commands/plan.md` | Create implementation plan, wait for approval before coding |
+| `/tdd` | `commands/tdd.md` | Scaffold interfaces, write tests first, implement, verify coverage |
+| `/build-fix` | `commands/build-fix.md` | Auto-detect build system, parse errors, fix one at a time |
+| `/code-review` | `commands/code-review.md` | Security, quality, performance, a11y, and API design review |
+| `/checkpoint` | `commands/checkpoint.md` | Create/verify git-based workflow checkpoints |
+| `/docs` | `commands/docs.md` | Look up current documentation via Context7 MCP |
+| `/setup-github` | `commands/setup-github.md` | Configure GitHub MCP server with PAT token |
+| `/deploy` | `commands/deploy.md` | Generate Dockerfile, docker-compose, or CI/CD pipeline |
+| `/migrate` | `commands/migrate.md` | Create safe database migrations (always confirms before executing) |
+| `/perf` | `commands/perf.md` | Profile API, DB queries, bundles, and algorithm complexity |
+| `/refactor` | `commands/refactor.md` | Detect code smells and apply safe test-driven refactoring |
+| `/api-design` | `commands/api-design.md` | Design REST/GraphQL APIs and generate OpenAPI specs |
+| `/dependency-check` | `commands/dependency-check.md` | Audit dependencies for CVEs, outdated packages, license issues |
+| `/changelog` | `commands/changelog.md` | Generate changelog entries from git commits |
 
 ### Skills
 
@@ -69,69 +77,130 @@ Deep workflow knowledge that Claude activates automatically when relevant.
 
 | Skill | Directory | Description |
 |-------|-----------|-------------|
-| **TDD Workflow** | `skills/tdd-workflow/` | Testing patterns, mocking strategies, coverage verification, and common mistakes |
-| **Security Review** | `skills/security-review/` | Secrets management, input validation, SQL injection prevention, pre-deployment checklist |
-| **Codebase Onboarding** | `skills/codebase-onboarding/` | Systematic discovery process for mapping and understanding new codebases |
-| **Semantic Commits** | `skills/semantic-commits/` | Version control strategy enforcing atomic, semantic conventional commits |
+| **TDD Workflow** | `skills/tdd-workflow/` | Testing patterns, mocking strategies, coverage verification |
+| **Security Review** | `skills/security-review/` | Secrets management, input validation, SQL injection, pre-deploy checklist |
+| **Codebase Onboarding** | `skills/codebase-onboarding/` | Systematic discovery process for mapping new codebases |
+| **Semantic Commits** | `skills/semantic-commits/` | Atomic, conventional commits with correct types and scopes |
+| **API Design Patterns** | `skills/api-design-patterns/` | REST naming, pagination, RFC 7807 errors, versioning, OpenAPI |
+| **Database Migrations** | `skills/database-migrations/` | Zero-downtime patterns, ORM templates, index design |
+| **CI/CD Pipelines** | `skills/cicd-pipelines/` | GitHub Actions templates, Docker multi-stage, deployment strategies |
+| **Error Handling** | `skills/error-handling/` | Custom error classes, retry/backoff, circuit breakers |
+| **Logging & Observability** | `skills/logging-observability/` | Structured logging, correlation IDs, metrics, no PII in logs |
+| **Accessibility** | `skills/accessibility/` | WCAG 2.1 AA, ARIA, keyboard navigation, color contrast |
+| **Performance Optimization** | `skills/performance-optimization/` | Backend/frontend profiling, caching, bundle size, memory leaks |
+| **Documentation Generation** | `skills/documentation-generation/` | README, JSDoc/docstrings, ADR, changelog, runbook templates |
 
 ### MCP Configurations
 
-Pre-configured Model Context Protocol servers to give Claude Code live access to external data. See `mcp-configs/README.md` for setup instructions.
-
 | Configuration | Description |
 |---------------|-------------|
-| **Context7** | Live framework documentation lookups using `@upstash/context7-mcp` |
-| **Playwright** | Browser automation and E2E testing using `@playwright/mcp` |
-| **GitHub** | Read/write PRs, issues, and repos using `@modelcontextprotocol/server-github` |
+| **Context7** | Live framework documentation lookups |
+| **Playwright** | Browser automation and E2E testing |
+| **GitHub** | Read/write PRs, issues, and repos |
+| **Filesystem** | Sandboxed project filesystem access |
+| **PostgreSQL** | Direct DB introspection for schema and query work |
 
 ### Hooks
 
-Event-driven automations that run before/after Claude's tool executions.
+Event-driven automations enforcing code quality and safety.
 
 | Hook | Event | Behavior |
 |------|-------|----------|
-| No-verify blocker | PreToolUse (Bash) | **Blocks** `git --no-verify` to protect pre-commit hooks |
-| File size limit | PreToolUse (Write) | **Blocks** creation of files > 800 lines |
-| TODO/FIXME warning | PreToolUse (Edit) | **Warns** when adding TODO/FIXME/HACK comments |
-| console.log warning | PostToolUse (Edit) | **Warns** about console.log in edited code |
+| No-verify blocker | PreToolUse (Bash) | **Blocks** `git --no-verify` |
+| Destructive command blocker | PreToolUse (Bash) | **Blocks** `rm -rf /`, `DROP DATABASE`, `TRUNCATE TABLE` |
+| Migration execution guard | PreToolUse (Bash) | **Warns** when running migration commands |
+| File size limit | PreToolUse (Write) | **Blocks** files > 800 lines |
+| TODO/FIXME warning | PreToolUse (Edit) | **Warns** on new TODO/FIXME/HACK comments |
+| Large diff warning | PreToolUse (Edit) | **Warns** when a single edit adds > 50 lines |
+| console.log warning | PostToolUse (Edit) | **Warns** about console.log in edits |
 | Test file reminder | PostToolUse (Write) | **Warns** when creating source files without tests |
 | Console.log audit | Stop | Checks all modified files for console.log |
+
+---
+
+## Recommended Workflow
+
+```
+/plan          → Create implementation plan (approve before coding)
+  ↓
+/api-design    → Design API contracts if adding endpoints
+  ↓
+/migrate       → Plan schema changes if touching DB
+  ↓
+/tdd           → Implement with tests first
+  ↓
+/build-fix     → Fix any build errors
+  ↓
+/perf          → Check for performance regressions
+  ↓
+/code-review   → Full review before committing
+  ↓
+/checkpoint    → Save progress
+  ↓
+/changelog     → Update changelog before PR
+```
+
+---
 
 ## Project Structure
 
 ```
 claude-starter-kit/
-├── CLAUDE.md              # Project-level instructions for Claude
-├── README.md              # This file
-├── agents/                # Specialized sub-agents
+├── CLAUDE.md                    # Project-level instructions for Claude
+├── README.md                    # This file
+├── agents/                      # Specialized sub-agents (11 total)
 │   ├── planner.md
 │   ├── architect.md
 │   ├── loop-operator.md
 │   ├── tdd-guide.md
-│   └── security-reviewer.md
-├── commands/              # Slash commands
+│   ├── security-reviewer.md
+│   ├── devops-engineer.md
+│   ├── database-specialist.md
+│   ├── performance-engineer.md
+│   ├── api-designer.md
+│   ├── refactoring-guru.md
+│   └── docs-writer.md
+├── commands/                    # Slash commands (14 total)
 │   ├── plan.md
 │   ├── tdd.md
 │   ├── build-fix.md
 │   ├── code-review.md
 │   ├── checkpoint.md
-│   └── docs.md
-├── skills/                # Deep workflow knowledge
+│   ├── docs.md
+│   ├── setup-github.md
+│   ├── deploy.md
+│   ├── migrate.md
+│   ├── perf.md
+│   ├── refactor.md
+│   ├── api-design.md
+│   ├── dependency-check.md
+│   └── changelog.md
+├── skills/                      # Deep workflow knowledge (12 total)
 │   ├── tdd-workflow/
-│   │   └── SKILL.md
 │   ├── security-review/
-│   │   └── SKILL.md
-│   └── codebase-onboarding/
-│       └── SKILL.md
-└── hooks/                 # Event-driven automations
-    ├── hooks.json
+│   ├── codebase-onboarding/
+│   ├── semantic-commits/
+│   ├── api-design-patterns/
+│   ├── database-migrations/
+│   ├── cicd-pipelines/
+│   ├── error-handling/
+│   ├── logging-observability/
+│   ├── accessibility/
+│   ├── performance-optimization/
+│   └── documentation-generation/
+├── hooks/                       # Event-driven automations
+│   ├── hooks.json               # 9 hooks across PreToolUse, PostToolUse, Stop
+│   └── README.md
+└── mcp-configs/                 # MCP server configurations (5 servers)
+    ├── mcp-servers.json
     └── README.md
 ```
+
+---
 
 ## File Format Reference
 
 ### Agents
-Markdown with YAML frontmatter:
 ```yaml
 ---
 name: agent-name
@@ -142,7 +211,6 @@ model: opus | sonnet
 ```
 
 ### Commands
-Markdown with YAML frontmatter:
 ```yaml
 ---
 description: What this command does when invoked
@@ -150,7 +218,6 @@ description: What this command does when invoked
 ```
 
 ### Skills
-Markdown with YAML frontmatter in a `SKILL.md` file inside a named directory:
 ```yaml
 ---
 name: skill-name
@@ -158,60 +225,7 @@ description: When and why to use this skill
 ---
 ```
 
-### Hooks
-JSON configuration in `hooks.json`:
-```json
-{
-  "hooks": {
-    "PreToolUse": [...],
-    "PostToolUse": [...],
-    "Stop": [...]
-  }
-}
-```
-
-## Customization Guide
-
-### Adding a New Agent
-
-1. Create `agents/your-agent.md`
-2. Add YAML frontmatter (`name`, `description`, `tools`, `model`)
-3. Define the agent's role, workflow, and output format
-4. Reference it from your commands
-
-### Adding a New Command
-
-1. Create `commands/your-command.md`
-2. Add YAML frontmatter (`description`)
-3. Document usage, workflow, and examples
-4. Reference related agents and skills
-
-### Adding a New Skill
-
-1. Create `skills/your-skill/SKILL.md`
-2. Add YAML frontmatter (`name`, `description`)
-3. Include "When to Activate" section
-4. Provide detailed patterns, checklists, and examples
-
-### Adding a New Hook
-
-1. Edit `hooks/hooks.json`
-2. Add entry to appropriate event (`PreToolUse`, `PostToolUse`, `Stop`)
-3. Set the `matcher` (tool name pattern)
-4. Write the hook command (receives JSON on stdin, outputs JSON on stdout)
-5. Use exit code `2` to block (PreToolUse only), stderr to warn
-
-## Recommended Workflow
-
-```
-1. /plan          --> Create implementation plan
-2. Review         --> Approve or modify the plan
-3. /tdd           --> Implement with tests first
-4. /checkpoint    --> Save progress
-5. /build-fix     --> Fix any build errors
-6. /code-review   --> Review before committing
-7. /checkpoint    --> Verify final state
-```
+---
 
 ## Contributing
 

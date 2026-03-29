@@ -3,15 +3,40 @@
     "context7": {
       "command": "npx",
       "args": ["-y", "@upstash/context7-mcp@latest"],
-      "description": "Live documentation lookup — use with /docs command and documentation-lookup skill (resolve-library-id, query-docs)."
+      "description": "Live documentation lookup — use with /docs command (resolve-library-id, query-docs)."
     },
     "playwright": {
       "command": "npx",
       "args": ["-y", "@playwright/mcp", "--browser", "chrome"],
-      "description": "Browser automation and testing via Playwright"
+      "description": "Browser automation and E2E testing. Use to visually validate UI, fill forms, and run browser-level tests."
+    },
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "YOUR_GITHUB_PAT_HERE"
+      },
+      "description": "GitHub integration — read/write PRs, issues, and repos. Configure with /setup-github command."
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "."],
+      "description": "Sandboxed filesystem access for the current project directory. Useful for safe file operations."
+    },
+    "postgres": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-postgres", "YOUR_DATABASE_URL_HERE"],
+      "description": "Direct PostgreSQL access for schema introspection and query testing. Used by the database-specialist agent. Replace YOUR_DATABASE_URL_HERE with your connection string."
     }
   },
   "_settings": {
-    "usage": "Do NOT put this file in your project root. Copy these JSON blocks to your global ~/.claude.json file under the mcpServers property."
+    "usage": "Do NOT put this file in your project root. Copy these JSON blocks to your global ~/.claude.json file under the mcpServers property.",
+    "notes": {
+      "context7": "Zero-config — works immediately via npx",
+      "playwright": "Zero-config — works immediately via npx",
+      "github": "Run /setup-github YOUR_PAT to auto-configure",
+      "filesystem": "Zero-config — scoped to current directory",
+      "postgres": "Replace YOUR_DATABASE_URL_HERE with your actual connection string before enabling"
+    }
   }
 }

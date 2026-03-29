@@ -12,6 +12,26 @@
         "description": "Block git hook-bypass flag (--no-verify) to protect pre-commit and pre-push hooks"
       },
       {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"let d='';process.stdin.on('data',c=>d+=c);process.stdin.on('end',()=>{const i=JSON.parse(d);const cmd=i.tool_input?.command||'';const danger=/\\brm\\s+-rf\\s+\\/|DROP\\s+DATABASE|DROP\\s+SCHEMA|TRUNCATE\\s+TABLE|format\\s+[A-Z]:/i;if(danger.test(cmd)){console.error('[Hook] BLOCKED: Destructive command detected: '+cmd.slice(0,80));console.error('[Hook] Review the command carefully before proceeding.');process.exit(2)}console.log(d)})\""
+          }
+        ],
+        "description": "Block potentially destructive commands (rm -rf /, DROP DATABASE, TRUNCATE TABLE)"
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"let d='';process.stdin.on('data',c=>d+=c);process.stdin.on('end',()=>{const i=JSON.parse(d);const cmd=i.tool_input?.command||'';const migrationCmd=/(migrate|alembic|prisma migrate|drizzle-kit push|typeorm migration:run|db:migrate|knex migrate)/.test(cmd)&&!/(create|generate|make|diff|status|history|rollback|revert|down|dry).*(migrate|migration)/i.test(cmd)&&/(run|latest|up|execute|apply|deploy)/.test(cmd)||/prisma migrate deploy/.test(cmd);if(migrationCmd){console.error('[Hook] WARNING: Migration execution detected.');console.error('[Hook] Ensure the user has confirmed this migration before running.');console.error('[Hook] Command: '+cmd.slice(0,120))}console.log(d)})\""
+          }
+        ],
+        "description": "Warn when executing database migrations — requires explicit user confirmation"
+      },
+      {
         "matcher": "Write",
         "hooks": [
           {
@@ -30,6 +50,16 @@
           }
         ],
         "description": "Warn when adding TODO/FIXME/HACK comments"
+      },
+      {
+        "matcher": "Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node -e \"let d='';process.stdin.on('data',c=>d+=c);process.stdin.on('end',()=>{const i=JSON.parse(d);const ns=i.tool_input?.new_string||'';const os=i.tool_input?.old_string||'';const added=ns.split('\\n').length-os.split('\\n').length;if(added>50){console.error('[Hook] Warning: Large edit detected (+'+added+' lines). Consider breaking this into smaller, focused changes.')}console.log(d)})\""
+          }
+        ],
+        "description": "Warn when a single edit adds more than 50 lines — encourages smaller, focused changes"
       }
     ],
     "PostToolUse": [

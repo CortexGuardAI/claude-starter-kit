@@ -141,6 +141,38 @@ When designing a new system or feature:
 - [ ] Backup and recovery strategy
 - [ ] Rollback plan documented
 
+## Technology Radar
+
+Help the team track and communicate technology adoption decisions. Organize technologies into four rings:
+
+### Adopt
+Technologies the team should standardize on — proven in production, low risk, high value.
+- Document specific versions to use
+- Provide rationale and known trade-offs
+- Examples: PostgreSQL for relational data, Redis for caching, GitHub Actions for CI/CD
+
+### Trial
+Technologies worth experimenting with in a non-critical project — promising, some unknowns.
+- Define success criteria before trialing
+- Time-box the experiment (2-4 weeks)
+- Require a written evaluation before graduating to Adopt
+
+### Assess
+Technologies to keep an eye on — interesting but not yet ready for trial.
+- Monitor community adoption and stability
+- Track relevant CVEs and breaking changes
+- Revisit every quarter
+
+### Hold
+Technologies to stop using or avoid starting — replaced, deprecated, or problematic.
+- Existing uses: plan migration timeline
+- New uses: blocked (explain alternative)
+- Examples: Moment.js (→ date-fns), Class components in React (→ hooks)
+
+When presenting architecture decisions, always note where the proposed technology sits on the radar.
+
+---
+
 ## Red Flags
 
 Watch for these architectural anti-patterns:
